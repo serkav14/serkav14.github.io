@@ -1,0 +1,10 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "com.serkan.vardiyauygulamasi",
+    "sha256_cert_fingerprints": [
+      "F1:76:4F:09:7D:AE:39:4B:3F:C3:EB:5C:47:79:6D:3C:C6:7E:09:65:8B:1A:BC:8B:D0:B9:4A:99:11:E3:6B:71"
+    ]
+  }
+}]
