@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Shiftium – Vardiya Notunuz Var</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --bg: #060b18; --card: #0d1526;
+  --accent: #3b82f6; --accent2: #06b6d4;
+  --text: #f0f4ff; --muted: #64748b;
+  --border: rgba(59,130,246,0.18);
+  --glow: rgba(59,130,246,0.22);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { min-height: 100vh; background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--text); overflow-x: hidden; }
+body::before {
+  content: ''; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.gb { position: fixed; border-radius: 50%; filter: blur(90px); z-index: 0; pointer-events: none; }
+.gb1 { width: 400px; height: 400px; background: rgba(59,130,246,0.1); top: -120px; right: -80px; }
+.gb2 { width: 300px; height: 300px; background: rgba(6,182,212,0.07); bottom: 40px; left: -60px; }
+.page { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 20px; }
+.logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 36px; animation: fadeDown 0.5s ease both; }
+.logo-icon { width: 42px; height: 42px; border-radius: 11px; background: linear-gradient(135deg, #1d4ed8, #0891b2); display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 24px rgba(59,130,246,0.45); }
+.logo-name { font-family: 'Syne', sans-serif; font-size: 22px; font-weight: 800; letter-spacing: 3px; }
+.card { width: 100%; max-width: 400px; background: var(--card); border: 1px solid var(--border); border-radius: 22px; padding: 36px 28px; box-shadow: 0 0 60px var(--glow), 0 24px 60px rgba(0,0,0,0.5); animation: fadeUp 0.6s ease 0.1s both; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent); }
+.not-icon { width: 76px; height: 76px; border-radius: 20px; margin: 0 auto 22px; background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(6,182,212,0.12)); border: 1px solid rgba(59,130,246,0.3); display: flex; align-items: center; justify-content: center; font-size: 34px; animation: iconPulse 2.5s ease-in-out infinite; box-shadow: 0 0 30px rgba(59,130,246,0.15); }
+@keyframes iconPulse { 0%,100% { transform: scale(1); box-shadow: 0 0 20px rgba(59,130,246,0.15); } 50% { transform: scale(1.07); box-shadow: 0 0 40px rgba(59,130,246,0.35); } }
+.card-title { font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 8px; }
+.card-sub { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 28px; line-height: 1.6; }
+.divider { height: 1px; background: var(--border); margin: 22px 0; }
+.info-box { background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15); border-radius: 12px; padding: 16px; margin-bottom: 24px; display: flex; align-items: flex-start; gap: 12px; }
+.info-box .ii { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+.info-box p { font-size: 13px; color: rgba(240,244,255,0.75); line-height: 1.6; }
+.btn-p { display: block; width: 100%; padding: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; border-radius: 14px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500; cursor: pointer; text-align: center; text-decoration: none; box-shadow: 0 8px 24px rgba(59,130,246,0.35); transition: transform 0.15s, box-shadow 0.15s; margin-bottom: 12px; }
+.btn-p:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59,130,246,0.5); }
+.btn-s { display: block; width: 100%; padding: 14px; background: transparent; color: var(--muted); border: 1px solid rgba(100,116,139,0.25); border-radius: 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; cursor: pointer; text-align: center; text-decoration: none; transition: border-color 0.15s, color 0.15s; }
+.btn-s:hover { border-color: var(--accent); color: var(--accent); }
+.footer { margin-top: 28px; font-size: 12px; color: var(--muted); text-align: center; animation: fadeUp 0.6s ease 0.4s both; }
+.spinner { width: 36px; height: 36px; border: 3px solid rgba(59,130,246,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+<div class="gb gb1"></div>
+<div class="gb gb2"></div>
+<div class="page">
+
+  <div class="logo-row">
+    <div class="logo-icon">👷</div>
+    <span class="logo-name">SHİFTİUM</span>
+  </div>
+
+  <div class="card" id="ekran-yukleniyor" style="text-align:center; padding:48px 28px;">
+    <div class="spinner"></div>
+    <p style="color:var(--muted);font-size:14px;">Kontrol ediliyor...</p>
+  </div>
+
+  <div class="card hidden" id="ekran-aciliyor" style="text-align:center;">
+    <div class="not-icon">📲</div>
+    <div class="card-title">Uygulama Açılıyor</div>
+    <div class="card-sub">Shiftium uygulamanıza yönlendiriliyorsunuz...</div>
+    <div class="divider"></div>
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-bottom:16px;">Açılmadıysa aşağıya dokunun</p>
+    <a id="btn-tekrar" href="#" class="btn-p">📱 Uygulamayı Aç</a>
+  </div>
+
+  <div class="card hidden" id="ekran-indir">
+    <div class="not-icon">📝</div>
+    <div class="card-title">Vardiya Notunuz Var!</div>
+    <div class="card-sub">Şefiniz size bir not bıraktı.</div>
+    <div class="info-box">
+      <span class="ii">💡</span>
+      <p>Notu görüntülemek için <strong style="color:var(--text);">Shiftium</strong> uygulamasını ücretsiz indirin. Kurulduktan sonra not otomatik açılır.</p>
+    </div>
+    <a href="https://play.google.com/store/apps/details?id=com.serkan.vardiyauygulamasi" class="btn-p">▶ Google Play'den İndir</a>
+    <a id="btn-ac" href="#" class="btn-s">Uygulama zaten yüklü → Aç</a>
+  </div>
+
+  <div class="footer">Shiftium · Vardiya Yönetim Sistemi</div>
+</div>
+
+<script>
+const params  = new URLSearchParams(window.location.search);
+const ws      = params.get('ws')  || '';
+const uid     = params.get('uid') || '';
+const gun     = params.get('gun') || '';
+const deepLink = 'shiftium://not?ws=' + ws + '&uid=' + uid + '&gun=' + gun;
+
+document.getElementById('btn-tekrar').href = deepLink;
+document.getElementById('btn-ac').href     = deepLink;
+
+function goster(id) {
+  ['ekran-yukleniyor','ekran-aciliyor','ekran-indir'].forEach(function(i) {
+    var el = document.getElementById(i);
+    if (i === id) { el.classList.remove('hidden'); } else { el.classList.add('hidden'); }
+  });
+}
+
+function uygulamaAc() {
+  if (!ws) { goster('ekran-indir'); return; }
+  var acildi = false;
+  window.addEventListener('blur', function() { acildi = true; }, { once: true });
+  window.location.href = deepLink;
+  setTimeout(function() {
+    if (acildi) { goster('ekran-aciliyor'); }
+    else        { goster('ekran-indir'); }
+  }, 2200);
+}
+
+window.addEventListener('load', function() {
+  setTimeout(uygulamaAc, 700);
+});
+</script>
+</body>
+</html>
